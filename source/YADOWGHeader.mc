@@ -11,11 +11,13 @@ class Header extends WatchUi.Drawable {
   private var weatherFont;
   private var dIcons;
   private var nIcons;
+  private var watch;
 
   function initialize() {
     var dictionary = {
       :identifier => "Header"
     };
+
     sourceSansProSmallFont = WatchUi.loadResource(Rez.Fonts.SourceSansProSmallFont);
     weatherFont = WatchUi.loadResource(Rez.Fonts.IcoWeatherFont);
 
@@ -132,6 +134,10 @@ class Header extends WatchUi.Drawable {
     Drawable.initialize(dictionary);
   }
 
+  function setWatch(watchView as WatchUi.View) as Void {
+    watch = watchView;
+  }
+
   function getWeather() as Number {
     var conditions = Weather.getCurrentConditions();
     if (conditions != null) {
@@ -147,7 +153,7 @@ class Header extends WatchUi.Drawable {
       return conditions.windSpeed.format("%.1f");
     }
 
-    return "?!";
+    return "";
   }
 
   function drawWindIndicator(dc as Dc) as Void {
@@ -236,12 +242,12 @@ class Header extends WatchUi.Drawable {
     var today = Gregorian.moment({ :year => now.year, :month => now.month, :day => now.day, :hour => 0 });
     var fallback = now.hour <= 21 && now.hour >= 6;
     
-    if (lastKnownPosition == null) {
+    if (watch.lastKnownPosition == null) {
       return fallback;
     }
 
-    var sunrise = Weather.getSunrise(lastKnownPosition, today); 
-    var sunset = Weather.getSunset(lastKnownPosition, today);
+    var sunrise = Weather.getSunrise(watch.lastKnownPosition, today); 
+    var sunset = Weather.getSunset(watch.lastKnownPosition, today);
     var momentNow = new Time.Moment(Time.now().value());
 
     if (sunrise == null || sunset == null) {

@@ -15,6 +15,7 @@ class Ring extends WatchUi.Drawable {
     private var utcSunset = null;
     private var now = Gregorian.utcInfo(Time.now(), Time.FORMAT_SHORT);
     private var today = Gregorian.moment({ :year => now.year, :month => now.month, :day => now.day, :hour => 0 });
+    private var watch;
 
     function initialize() {
         var dictionary = {
@@ -23,26 +24,30 @@ class Ring extends WatchUi.Drawable {
         Drawable.initialize(dictionary);
     }
 
+    function setWatch(watchView as WatchUi.View) as Void {
+      watch = watchView;
+    }
+
     function getSunriseSunset() {
-      var sunriseSunsetSetAt = retrievePersistedValue("sunriseSunsetSetAt");
+      var sunriseSunsetSetAt = watch.retrievePersistedValue("sunriseSunsetSetAt");
 
-      if (lastKnownPosition != null) {
+      if (watch.lastKnownPosition != null) {
         if (sunriseSunsetSetAt == null || sunriseSunsetSetAt.toNumber() < Time.now().subtract(new Time.Duration(24 * 60 * 60)).value()) {
-          clearPersistedValue("sunrise");
-          clearPersistedValue("sunset");
-          clearPersistedValue("sunriseSunsetSetAt");
+          watch.clearPersistedValue("sunrise");
+          watch.clearPersistedValue("sunset");
+          watch.clearPersistedValue("sunriseSunsetSetAt");
 
-          sunrise = Weather.getSunrise(lastKnownPosition, today); 
-          sunset = Weather.getSunset(lastKnownPosition, today);
+          sunrise = Weather.getSunrise(watch.lastKnownPosition, today); 
+          sunset = Weather.getSunset(watch.lastKnownPosition, today);
 
           if (sunrise != null && sunset != null) {
-            persistValue("sunrise", sunrise.value());
-            persistValue("sunset", sunset.value());
-            persistValue("sunriseSunsetSetAt", Time.now().value());
+            watch.persistValue("sunrise", sunrise.value());
+            watch.persistValue("sunset", sunset.value());
+            watch.persistValue("sunriseSunsetSetAt", Time.now().value());
           }
         } else {
-          var sunriseValue = retrievePersistedValue("sunrise").toNumber();
-          var sunsetValue = retrievePersistedValue("sunset").toNumber();
+          var sunriseValue = watch.retrievePersistedValue("sunrise").toNumber();
+          var sunsetValue = watch.retrievePersistedValue("sunset").toNumber();
 
           if (sunriseValue != null && sunsetValue != null) {
             sunrise = new Time.Moment(sunriseValue);

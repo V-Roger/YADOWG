@@ -7,35 +7,12 @@ import Toybox.Position;
 import Toybox.Time;
 import Toybox.Time.Gregorian;
 
-var lastKnownPosition;
-
-function persistValue(key as String, value) as Void {
-    if ( Application has :Storage ) {
-        Application.Storage.setValue(key, value);
-    } else {
-        Application.AppBase.setProperty(key, value);
-    }
-}
-
-function retrievePersistedValue(key as String) {
-    if ( Application has :Storage ) {
-        Application.Storage.getValue(key);
-    } else {
-        Application.AppBase.getProperty(key);
-    }
-}
-
-function clearPersistedValue(key as String) as Void {
-    if ( Application has :Storage ) {
-        Application.Storage.deleteValue(key);
-    } else {
-        Application.AppBase.deleteProperty(key);
-    }
-}
-
 class YADOWGView extends WatchUi.WatchFace {
     private var dataFields;
     private var clock;
+    private var ring;
+    private var header;
+    var lastKnownPosition = null;
 
     function initialize() {
         if ( Application has :Storage ) {
@@ -49,6 +26,11 @@ class YADOWGView extends WatchUi.WatchFace {
     function cacheDrawables() {
         clock = View.findDrawableById("Time");
         dataFields = View.findDrawableById("Fields");
+        ring = View.findDrawableById("Ring");
+        header = View.findDrawableById("Header");
+
+        ring.setWatch(self);
+        header.setWatch(self);
     }
 
     function setHideSeconds(hideSeconds) {
@@ -65,6 +47,31 @@ class YADOWGView extends WatchUi.WatchFace {
         getAndStorePosition();
         setLayout(Rez.Layouts.WatchFace(dc));
         cacheDrawables();
+    }
+
+
+    function persistValue(key as String, value) as Void {
+        if ( Application has :Storage ) {
+            Application.Storage.setValue(key, value);
+        } else {
+            Application.AppBase.setProperty(key, value);
+        }
+    }
+
+    function retrievePersistedValue(key as String) {
+        if ( Application has :Storage ) {
+            Application.Storage.getValue(key);
+        } else {
+            Application.AppBase.getProperty(key);
+        }
+    }
+
+    function clearPersistedValue(key as String) as Void {
+        if ( Application has :Storage ) {
+            Application.Storage.deleteValue(key);
+        } else {
+            Application.AppBase.deleteProperty(key);
+        }
     }
 
     function getAndStorePosition() as Boolean {

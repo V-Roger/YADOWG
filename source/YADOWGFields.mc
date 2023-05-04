@@ -70,10 +70,10 @@ class Fields extends WatchUi.Drawable {
     dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
     if (isPartialUpdate) {
 			dc.setClip(
-				width / 2 - 75,
-				height / 2 - 20,
+				width / 2 - 85,
+				height / 2 - 35,
 				25,
-				25
+				30
 			);
 
       dc.clear();
