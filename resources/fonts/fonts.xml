@@ -1,0 +1,8 @@
+<fonts>
+	<font id="SourceSansProFont" filename="source2.fnt" antialias="true" />
+	<font id="SourceSansProSmallFont" filename="source_small4.fnt" antialias="true" />
+	<font id="BebasNeueNumbersFont" filename="bebas_numbers3.fnt" antialias="true" />
+	<font id="BebasNeueNumbersSmallFont" filename="bebas_numbers_small2.fnt" antialias="true" />
+	<font id="IcoFont" filename="icoFont2.fnt" antialias="true" />
+	<font id="IcoWeatherFont" filename="icoFont_weather3.fnt" antialias="true" />
+</fonts>

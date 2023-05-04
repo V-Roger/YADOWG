@@ -1,0 +1,9 @@
+<layout id="WatchFace">
+    <drawable class="Background" />
+    <drawable class="Ring" />
+    <drawable class="Header" />
+    <drawable class="Time" />
+    <drawable class="Footer" />
+    <drawable class="Fields" />
+    <drawable class="Gauges" />
+</layout>

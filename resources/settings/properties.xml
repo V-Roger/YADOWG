@@ -1,0 +1,17 @@
+<properties>
+  <!-- meta -->
+  <property id="appVersion" type="string">0.0.1</property>
+
+  <!-- colors -->
+  <property id="ydgBlue" type="number">0x033E8C</property>
+  <property id="ydgLime" type="number">0xCEF09D</property>
+  <property id="ydgMossGreen" type="number">0x103778</property>
+  <property id="ydgTeal" type="number">0x33A6A6</property>
+  <property id="ydgYellow" type="number">0xF2B705</property>
+  <property id="ydgOrange" type="number">0xF25041</property>
+  <property id="ydgViolet" type="number">0x8C1F66</property>
+  <property id="ydgBrightBlue" type="number">0x0099DD</property>
+  <property id="ydgBrightRed" type="number">0xD90404</property>
+  <property id="ydgBrightGreen" type="number">0x03A61C</property>
+
+</properties>
