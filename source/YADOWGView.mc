@@ -114,11 +114,20 @@ class YADOWGView extends WatchUi.WatchFace {
         }
     }
 
+    function onStart(state as Dictionary) as Void {
+        getAndStorePosition();
+    }
+
+    function onStop(state as Dictionary) as Void {
+        if (lastKnownPosition != null) {
+            storePositionInfo(lastKnownPosition);
+        }
+    }
+
     // Called when this View is brought to the foreground. Restore
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() as Void {
-        getAndStorePosition();
     }
 
     // Update the view

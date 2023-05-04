@@ -32,7 +32,11 @@ class Gauges extends WatchUi.Drawable {
 
     function getBodyBattery() as Float {
       if ((Toybox has :SensorHistory) && (Toybox.SensorHistory has :getBodyBatteryHistory)) {
-        return SensorHistory.getBodyBatteryHistory({ :period => 1 }).next().data;
+        var sample = SensorHistory.getBodyBatteryHistory({ :period => 1, :order => SensorHistory.ORDER_NEWEST_FIRST }).next();
+
+        if (sample != null) {
+          return sample.data;
+        }
       }
 
       return 0.01;
