@@ -3,8 +3,17 @@
 
 Yet Another Data-Oriented Watchface for Garmin
 
-## LICENSE
+## DESIGN
 
+![YADOWG on a Forerunner 945](fr945xYADOWG.png)
+
+## ASSETS
+
+* [IcoFont](https://icofont.com/)
+* [Source Sans Pro](https://fonts.adobe.com/fonts/source-sans)
+* [Bebas Neue](https://fonts.adobe.com/fonts/bebas-neue)
+
+## LICENSE
 
 This work is licensed under a
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
