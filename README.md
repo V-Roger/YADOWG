@@ -7,6 +7,10 @@ Yet Another Data-Oriented Watchface for Garmin
 
 ![YADOWG on a Forerunner 945](fr945xYADOWG.png)
 
+## LIKE IT?
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://bmc.link/vroger)
+
 ## ASSETS
 
 * [IcoFont](https://icofont.com/)
