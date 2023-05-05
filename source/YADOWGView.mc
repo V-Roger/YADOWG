@@ -112,6 +112,8 @@ class YADOWGView extends WatchUi.WatchFace {
             persistValue("sunset", sunset.value());
             persistValue("sunriseSunsetSetAt", Time.now().value());
         }
+
+        WatchUi.requestUpdate();
     }
 
     function onStart(state as Dictionary) as Void {
