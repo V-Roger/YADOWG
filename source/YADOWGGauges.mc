@@ -21,13 +21,24 @@ class Gauges extends WatchUi.Drawable {
       return Math.ceil(System.getSystemStats().battery);
     }
 
-    function getSteps() as Float {
+      function getSteps() as Float {
       var info = ActivityMonitor.getInfo();
-      if (info.steps == null || info.steps == 0) {
-        return 0.01;
+      var goal = info.stepGoal.toFloat();
+      var steps = 1.0 as Float;
+      if (info.steps != null && info.steps > 0) {
+        steps = info.steps.toFloat();
+      } 
+
+      if (goal == null) {
+        return steps * 0.02;
       }
 
-      return info.steps * 0.01;
+      var stepsToGoalRatio = steps / goal;
+      if (stepsToGoalRatio >= 1) {
+        return 100.0;
+      }
+
+      return stepsToGoalRatio * 100.0;
     }
 
     function getBodyBattery() as Float {

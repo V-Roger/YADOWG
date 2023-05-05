@@ -1,6 +1,6 @@
 <properties>
   <!-- meta -->
-  <property id="appVersion" type="string">0.0.1</property>
+  <property id="appVersion" type="string">0.0.3</property>
 
   <!-- colors -->
   <property id="ydgBlue" type="number">0x033E8C</property>

@@ -6,11 +6,6 @@ class YADOWGApp extends Application.AppBase {
 
     function initialize() {
         AppBase.initialize();
-        if ( Application has :Storage ) {
-            Application.Storage.clearValues();
-        } else {
-            AppBase.clearProperties();
-        }
     }
 
     // onStart() is called on application start up
