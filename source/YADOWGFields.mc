@@ -67,6 +67,12 @@ class Fields extends WatchUi.Drawable {
     var x = width / 2 - 45;
     var y = height / 2 - 20;
 
+    var clockTime = System.getClockTime();
+		var seconds = clockTime.sec;
+    if (isPartialUpdate && seconds % 5) {
+      return;
+    }
+
     dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
     if (isPartialUpdate) {
 			dc.setClip(

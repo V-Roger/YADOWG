@@ -15,11 +15,6 @@ class YADOWGView extends WatchUi.WatchFace {
     var lastKnownPosition = null;
 
     function initialize() {
-        if ( Application has :Storage ) {
-            Application.Storage.clearValues();
-        } else {
-            Application.AppBase.clearProperties();
-        }
         WatchFace.initialize();
     }
 
