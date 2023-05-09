@@ -27,7 +27,7 @@ class Time extends WatchUi.Drawable {
         var clockTime = System.getClockTime();
 		var seconds = clockTime.sec.format("%02d");
 
-		if (isPartialUpdate) {
+		if (isPartialUpdate && !hideSeconds) {
 			dc.setClip(
 				x - 26,
 				y + 30,
