@@ -46,27 +46,27 @@ class YADOWGView extends WatchUi.WatchFace {
 
 
     function persistValue(key as String, value) as Void {
-        if ( Application has :Storage ) {
-            Application.Storage.setValue(key, value);
-        } else {
+        // if ( Application has :Storage ) {
+        //     Application.Storage.setValue(key, value);
+        // } else {
             Application.AppBase.setProperty(key, value);
-        }
+        // }
     }
 
     function retrievePersistedValue(key as String) {
-        if ( Application has :Storage ) {
-            Application.Storage.getValue(key);
-        } else {
+        // if ( Application has :Storage ) {
+        //     Application.Storage.getValue(key);
+        // } else {
             Application.AppBase.getProperty(key);
-        }
+        // }
     }
 
     function clearPersistedValue(key as String) as Void {
-        if ( Application has :Storage ) {
-            Application.Storage.deleteValue(key);
-        } else {
+        // if ( Application has :Storage ) {
+        //     Application.Storage.deleteValue(key);
+        // } else {
             Application.AppBase.deleteProperty(key);
-        }
+        // }
     }
 
     function getAndStorePosition() as Boolean {
@@ -79,12 +79,10 @@ class YADOWGView extends WatchUi.WatchFace {
             if (currentLocation != null) {
                 storePositionInfo(currentLocation);
             } else {
-                var lastPositionCoords =retrievePersistedValue("last-position");
+                var lastPositionCoords = retrievePersistedValue("last-position");
                 if (lastPositionCoords != null) {
                     var lastPosition = new Toybox.Position.Location({ :latitude => lastPositionCoords[0], :longitude => lastPositionCoords[1], :format => :degrees });
                     storePositionInfo(lastPosition);
-                } else {
-                    clearPersistedValue("last-position");
                 }
             }
         }
