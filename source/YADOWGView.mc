@@ -46,27 +46,27 @@ class YADOWGView extends WatchUi.WatchFace {
 
 
     function persistValue(key as String, value) as Void {
-        // if ( Application has :Storage ) {
-        //     Application.Storage.setValue(key, value);
-        // } else {
+        if ( Application has :Storage ) {
+            Application.Storage.setValue(key, value);
+        } else {
             Application.AppBase.setProperty(key, value);
-        // }
+        }
     }
 
     function retrievePersistedValue(key as String) {
-        // if ( Application has :Storage ) {
-        //     Application.Storage.getValue(key);
-        // } else {
+        if ( Application has :Storage ) {
+            Application.Storage.getValue(key);
+        } else {
             Application.AppBase.getProperty(key);
-        // }
+        }
     }
 
     function clearPersistedValue(key as String) as Void {
-        // if ( Application has :Storage ) {
-        //     Application.Storage.deleteValue(key);
-        // } else {
+        if ( Application has :Storage ) {
+            Application.Storage.deleteValue(key);
+        } else {
             Application.AppBase.deleteProperty(key);
-        // }
+        }
     }
 
     function getAndStorePosition() as Boolean {
@@ -110,11 +110,13 @@ class YADOWGView extends WatchUi.WatchFace {
     }
 
     function onStart(state as Dictionary) as Void {
-        getAndStorePosition();
+        if (getAndStorePosition()) {
+            storePositionInfo(lastKnownPosition);
+        }
     }
 
     function onStop(state as Dictionary) as Void {
-        if (lastKnownPosition != null) {
+        if (getAndStorePosition()) {
             storePositionInfo(lastKnownPosition);
         }
     }
@@ -123,7 +125,9 @@ class YADOWGView extends WatchUi.WatchFace {
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() as Void {
-        getAndStorePosition();
+        if (getAndStorePosition()) {
+            storePositionInfo(lastKnownPosition);
+        }
     }
 
     // Update the view
@@ -136,6 +140,9 @@ class YADOWGView extends WatchUi.WatchFace {
     // state of this View here. This includes freeing resources from
     // memory.
     function onHide() as Void {
+        if (getAndStorePosition()) {
+            storePositionInfo(lastKnownPosition);
+        }
     }
 
     // The user has just looked at their watch. Timers and animations may be started here.
