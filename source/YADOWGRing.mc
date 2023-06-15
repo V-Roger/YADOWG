@@ -55,6 +55,7 @@ class Ring extends WatchUi.Drawable {
           }
         }
       } else {
+        watch.getAndStorePosition();
         return false;
       }
 

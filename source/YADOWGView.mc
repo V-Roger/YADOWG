@@ -39,9 +39,9 @@ class YADOWGView extends WatchUi.WatchFace {
 
     // Load your resources here
     function onLayout(dc as Dc) as Void {
-        getAndStorePosition();
         setLayout(Rez.Layouts.WatchFace(dc));
         cacheDrawables();
+        getAndStorePosition();
     }
 
 
@@ -91,21 +91,8 @@ class YADOWGView extends WatchUi.WatchFace {
     }
 
     function storePositionInfo(position as Position.Location) as Void {
-        var now = Gregorian.utcInfo(Time.now(), Time.FORMAT_SHORT);
-        var today = Gregorian.moment({ :year => now.year, :month => now.month, :day => now.day, :hour => 0 });
-
         lastKnownPosition = position;
         persistValue("last-position", position.toDegrees());
-
-        var sunrise = Weather.getSunrise(lastKnownPosition, today); 
-        var sunset = Weather.getSunset(lastKnownPosition, today);
-
-        if (sunrise != null && sunset != null) {
-            persistValue("sunrise", sunrise.value());
-            persistValue("sunset", sunset.value());
-            persistValue("sunriseSunsetSetAt", Time.now().value());
-        }
-
         WatchUi.requestUpdate();
     }
 
