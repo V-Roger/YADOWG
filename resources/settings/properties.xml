@@ -1,6 +1,16 @@
 <properties>
   <!-- meta -->
-  <property id="appVersion" type="string">0.1.0</property>
+  <property id="appVersion" type="string">0.1.1</property>
+
+  <!-- metrics -->
+  <property id="topLeftMetric" type="number">0</property>
+  <property id="topRightMetric" type="number">2</property>
+  <property id="bottomLeftMetric" type="number">1</property>
+  <property id="bottomRightMetric" type="number">3</property>
+
+  <!-- customization -->
+  <property id="secondsColor" type="number">0xAAAAAA</property>
+  <property id="minutesColor" type="number">0xD90404</property>
 
   <!-- colors -->
   <property id="ydgBlue" type="number">0x033E8C</property>

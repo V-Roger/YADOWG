@@ -13,7 +13,22 @@ class Fields extends WatchUi.Drawable {
     BATTERY,
     STEPS,
     STRESS,
+    RESPIRATION,
+    CALORIES,
+    DISTANCE,
+    ACTIVEMINUTES,
   }
+
+  private var fields = [
+    HEART,
+    BATTERY,
+    STEPS,
+    STRESS,
+    RESPIRATION,
+    CALORIES,
+    DISTANCE,
+    ACTIVEMINUTES, 
+  ];
 
   function initialize() {
     var dictionary = {
@@ -55,17 +70,31 @@ class Fields extends WatchUi.Drawable {
           }
         }
         break;
+      case BATTERY:
+          var battery = Math.floor(System.getSystemStats().battery);
+          value = battery.format("%d") + "%";
+        break;
+      case RESPIRATION:
+          value = info.respirationRate;
+        break;
+      case CALORIES:
+          value = info.calories;
+        break;
+      case DISTANCE:
+          value = info.distance;
+        break;
+      case ACTIVEMINUTES:
+          value = info.activeMinutesDay.total;
+        break;
     }   
 
     return value;
   }
 
-  function updateHR(dc, isPartialUpdate) {
+  function updateHR(dc, isPartialUpdate, coords, leftSide) {
     var height = dc.getHeight();
     var width = dc.getWidth();
-
-    var x = width / 2 - 45;
-    var y = height / 2 - 20;
+    var offset = leftSide == true ? 30 : -30 as Number;
 
     var clockTime = System.getClockTime();
 		var seconds = clockTime.sec;
@@ -76,8 +105,8 @@ class Fields extends WatchUi.Drawable {
     dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
     if (isPartialUpdate) {
 			dc.setClip(
-				width / 2 - 85,
-				height / 2 - 35,
+				coords[0] + offset * 1.33,
+				coords[1] + offset * 1.33,
 				25,
 				30
 			);
@@ -86,8 +115,8 @@ class Fields extends WatchUi.Drawable {
 		}
 
     dc.drawText(
-      width / 2 - 75,
-      height / 2 - 20,
+      coords[0],
+      coords[1],
       sourceSansProFont,
       getValue(HEART),
       Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
@@ -95,8 +124,8 @@ class Fields extends WatchUi.Drawable {
 
     dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
     dc.drawText(
-      x,
-      y,
+      coords[0] + offset,
+      coords[1] + offset,
       iconsFont,
       60447.toChar().toString(),
       Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
@@ -105,86 +134,158 @@ class Fields extends WatchUi.Drawable {
     dc.clearClip();
   }
 
-  function update(dc, isPartialUpdate) {
-    var height = dc.getHeight();
-    var width = dc.getWidth();
+  function getBatteryIcon() {
+    var battery = Math.floor(System.getSystemStats().battery);
 
-    updateHR(dc, isPartialUpdate);
+    var batteryIconCharNumber;
+    if (battery < 25) {
+      batteryIconCharNumber = 61108;
+    } else if (battery < 50) {
+      batteryIconCharNumber = 61107;
+    } else {
+      batteryIconCharNumber = 61106;
+    }
 
+    return batteryIconCharNumber.toChar().toString();
+  }
+
+  function getBatteryIconColor() as Number {
+    var battery = Math.floor(System.getSystemStats().battery);
+
+    if (battery < 25) {
+      return Application.Properties.getValue("ydgOrange");
+    } else if (battery < 50) {
+      return Application.Properties.getValue("ydgYellow");
+    } else {
+      return Application.Properties.getValue("ydgBrightGreen");
+    }
+  }
+
+  function getIcon(key) as String {
+    switch (key) {
+      case STEPS:
+        return 61239.toChar().toString();
+      case STRESS:
+        return 60426.toChar().toString();
+      case BATTERY:
+        return getBatteryIcon();
+      case RESPIRATION: 
+        return 61315.toChar().toString();
+      case CALORIES: 
+        return 61226.toChar().toString();
+      case DISTANCE: 
+        return 60860.toChar().toString();
+      case ACTIVEMINUTES: 
+        return 61234.toChar().toString();  
+      default:
+        return "";
+    }
+  }
+
+  function getIconColor(key) as Number {
+    switch (key) {
+      case STEPS:
+        return Application.Properties.getValue("ydgBrightBlue");
+      case STRESS:
+        return Application.Properties.getValue("ydgLime");
+      case BATTERY:
+        return getBatteryIconColor();
+      case RESPIRATION: 
+        return Application.Properties.getValue("ydgTeal");
+      case CALORIES: 
+        return Application.Properties.getValue("ydgOrange");
+      case DISTANCE: 
+        return Application.Properties.getValue("ydgBlue");
+      case ACTIVEMINUTES: 
+        return Application.Properties.getValue("ydgBrightRed");
+      default:
+        return Graphics.COLOR_WHITE;
+    }
+  }
+
+  function updateLambdaField(dc, isPartialUpdate, fieldKey, coords, leftSide) {
     if (isPartialUpdate) {
       return;
     }
+
+    var icon = getIcon(fieldKey);
+    var iconColor = getIconColor(fieldKey);
+    var value = getValue(fieldKey);
+
+    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+    dc.drawText(
+      coords[0],
+      coords[1],
+      sourceSansProFont,
+      value,
+      Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
+    );
+
+    var offset = leftSide == true ? 30 : -30 as Number;
+
+    dc.setColor(iconColor, Graphics.COLOR_TRANSPARENT);
+    dc.drawText(
+      coords[0] + offset,
+      coords[1],
+      iconsFont,
+      icon,
+      Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
+    );
+  }
+
+  function drawField(field, dc, isPartialUpdate, coords, leftSide) {
+    if (field == HEART) {
+      updateHR(dc, isPartialUpdate, coords, leftSide);
+    } else {
+      updateLambdaField(dc, isPartialUpdate, fields[field], coords, leftSide);
+    }
+  }
+
+  function drawTLField(dc, isPartialUpdate) {
+    var height = dc.getHeight();
+    var width = dc.getWidth();
+
+    var field = Application.Properties.getValue("topLeftMetric");
+    drawField(field, dc, isPartialUpdate, [width / 2 - 75, height / 2 - 20], true);
+  }
+
+  function drawTRField(dc, isPartialUpdate) {
+    var height = dc.getHeight();
+    var width = dc.getWidth();
+
+    var field = Application.Properties.getValue("topRightMetric");
+    drawField(field, dc, isPartialUpdate, [width / 2 + 75, height / 2 - 20], false);
+  }
+
+  function drawBLField(dc, isPartialUpdate) {
+    var height = dc.getHeight();
+    var width = dc.getWidth();
+
+    var field = Application.Properties.getValue("bottomLeftMetric");
+    drawField(field, dc, isPartialUpdate, [width / 2 - 75, height / 2 + 20], true);
+  }
+
+  function drawBRField(dc, isPartialUpdate) {
+    var height = dc.getHeight();
+    var width = dc.getWidth();
+
+    var field = Application.Properties.getValue("bottomRightMetric");
+    drawField(field, dc, isPartialUpdate, [width / 2 + 75, height / 2 + 20], false);
+  }
+
+  function update(dc, isPartialUpdate) {
+    var height = dc.getHeight();
+    var width = dc.getWidth();
+  
+    drawTLField(dc, isPartialUpdate);
+    drawTRField(dc, isPartialUpdate);
+    drawBLField(dc, isPartialUpdate);
+    drawBRField(dc, isPartialUpdate);
 
     dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
     dc.setPenWidth(1);
     dc.drawLine(35, height / 2 + 1, width / 2 - 40, height / 2 + 1);
     dc.drawLine(width / 2 + 40, height / 2 + 1, width - 35, height / 2 + 1);
-
-    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-    dc.drawText(
-      width / 2 + 75,
-      height / 2 - 20,
-      sourceSansProFont,
-      getValue(STEPS),
-      Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
-    );
-
-    dc.setColor(Application.Properties.getValue("ydgBrightBlue"), Graphics.COLOR_TRANSPARENT);
-    dc.drawText(
-      width / 2 + 45,
-      height / 2 - 20,
-      iconsFont,
-      61239.toChar().toString(),
-      Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
-    );
-
-    var battery = Math.floor(System.getSystemStats().battery);
-    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-    dc.drawText(
-      width / 2 - 75,
-      height / 2 + 20,
-      sourceSansProFont,
-      battery.format("%d") + "%",
-      Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
-    ); 
-
-    var batteryIconCharNumber;
-    if (battery < 25) {
-      dc.setColor(Application.Properties.getValue("ydgOrange"), Graphics.COLOR_TRANSPARENT);
-      batteryIconCharNumber = 61108;
-    } else if (battery < 50) {
-      dc.setColor(Application.Properties.getValue("ydgYellow"), Graphics.COLOR_TRANSPARENT);
-      batteryIconCharNumber = 61107;
-    } else {
-      dc.setColor(Application.Properties.getValue("ydgBrightGreen"), Graphics.COLOR_TRANSPARENT);
-      batteryIconCharNumber = 61106;
-    }
-    dc.drawText(
-      width / 2 - 45,
-      height / 2 + 20,
-      iconsFont,
-      batteryIconCharNumber.toChar().toString(),
-      Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
-    );
-
-
-    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-    dc.drawText(
-      width / 2 + 75,
-      height / 2 + 20,
-      sourceSansProFont,
-      getValue(STRESS),
-      Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
-    ); 
-
-    dc.setColor(Application.Properties.getValue("ydgLime"), Graphics.COLOR_TRANSPARENT);
-    dc.drawText(
-      width / 2 + 45,
-      height / 2 + 20,
-      iconsFont,
-      60426.toChar().toString(),
-      Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
-    );
   }
 
   function draw(dc as Dc) as Void {

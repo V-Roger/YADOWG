@@ -2,4 +2,63 @@
   <setting propertyKey="@Properties.appVersion" title="@Strings.AppVersionTitle">
     <settingConfig type="alphaNumeric" readonly="true" />
   </setting>
+
+  <setting propertyKey="@Properties.topLeftMetric" title="@Strings.TopLeftMetric" prompt="@Strings.MetricPrompt">
+    <settingConfig type="list">
+        <listEntry value="0">@Strings.HeartRate</listEntry>
+        <listEntry value="2">@Strings.StepsCount</listEntry>
+        <listEntry value="1">@Strings.WatchBattery</listEntry>
+        <listEntry value="3">@Strings.Stress</listEntry>
+        <listEntry value="5">@Strings.Calories</listEntry>
+        <listEntry value="6">@Strings.Distance</listEntry>
+        <listEntry value="4">@Strings.Respiration</listEntry>
+        <listEntry value="7">@Strings.ActiveMinutes</listEntry>
+    </settingConfig>
+  </setting>
+
+  <setting propertyKey="@Properties.topRightMetric" title="@Strings.TopRightMetric" prompt="@Strings.MetricPrompt">
+    <settingConfig type="list">
+    </settingConfig>
+  </setting>
+
+  <setting propertyKey="@Properties.bottomLeftMetric" title="@Strings.BottomLeftMetric" prompt="@Strings.MetricPrompt">
+    <settingConfig type="list">
+    </settingConfig>
+  </setting>
+
+  <setting propertyKey="@Properties.bottomRightMetric" title="@Strings.BottomRightMetric" prompt="@Strings.MetricPrompt">
+    <settingConfig type="list">
+    </settingConfig>
+  </setting>
+
+  <setting propertyKey="@Properties.secondsColor" title="@Strings.SecondsColor" prompt="@Strings.MetricPrompt">
+    <settingConfig type="list">
+        <listEntry value="0xAAAAAA">Default light gray</listEntry>
+        <listEntry value="0x033E8C">Blue</listEntry>
+        <listEntry value="0xCEF09D">Lime</listEntry>
+        <listEntry value="0x103778">Moss green</listEntry>
+        <listEntry value="0x33A6A6">Teal</listEntry>
+        <listEntry value="0xF2B705">Yellow</listEntry>
+        <listEntry value="0xF25041">Orange</listEntry>
+        <listEntry value="0x8C1F66">Violet</listEntry>
+        <listEntry value="0x0099DD">Bright blue</listEntry>
+        <listEntry value="0xD90404">Bright red</listEntry>
+        <listEntry value="0x03A61C">Bright green</listEntry>
+    </settingConfig>
+  </setting>
+
+  <setting propertyKey="@Properties.minutesColor" title="@Strings.MinutesColor" prompt="@Strings.MetricPrompt">
+    <settingConfig type="list">
+        <listEntry value="0x033E8C">Blue</listEntry>
+        <listEntry value="0xCEF09D">Lime</listEntry>
+        <listEntry value="0x103778">Moss green</listEntry>
+        <listEntry value="0x33A6A6">Teal</listEntry>
+        <listEntry value="0xF2B705">Yellow</listEntry>
+        <listEntry value="0xF25041">Orange</listEntry>
+        <listEntry value="0x8C1F66">Violet</listEntry>
+        <listEntry value="0x0099DD">Bright blue</listEntry>
+        <listEntry value="0xD90404">Bright red</listEntry>
+        <listEntry value="0x03A61C">Bright green</listEntry>
+    </settingConfig>
+  </setting>
 </settings>

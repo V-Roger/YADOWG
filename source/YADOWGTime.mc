@@ -30,7 +30,7 @@ class Time extends WatchUi.Drawable {
 		if (isPartialUpdate && !hideSeconds) {
 			dc.setClip(
 				x - 26,
-				y + 30,
+				y + 35,
 				52,
 				40
 			);
@@ -39,7 +39,7 @@ class Time extends WatchUi.Drawable {
 		}
 
         if (!hideSeconds) {
-            dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(AppBase.getProperty("secondsColor"), Graphics.COLOR_TRANSPARENT);
             dc.drawText(
                 x,
                 y + 50,
@@ -66,19 +66,19 @@ class Time extends WatchUi.Drawable {
             x - 25,
             y - 45,
             50,
-            80
+            85
         );
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         dc.clear();
         dc.drawText(
             x - 1,
-            y - 15,
+            y - 20,
             bebasNumbersFont,
             hours,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         );
 
-        dc.setColor(Application.Properties.getValue("ydgBrightRed"), Graphics.COLOR_TRANSPARENT);
+        dc.setColor(AppBase.getProperty("minutesColor"), Graphics.COLOR_TRANSPARENT);
         dc.drawText(
             x - 1,
             y + 20,
