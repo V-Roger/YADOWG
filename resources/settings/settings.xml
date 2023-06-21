@@ -18,16 +18,40 @@
 
   <setting propertyKey="@Properties.topRightMetric" title="@Strings.TopRightMetric" prompt="@Strings.MetricPrompt">
     <settingConfig type="list">
+        <listEntry value="0">@Strings.HeartRate</listEntry>
+        <listEntry value="2">@Strings.StepsCount</listEntry>
+        <listEntry value="1">@Strings.WatchBattery</listEntry>
+        <listEntry value="3">@Strings.Stress</listEntry>
+        <listEntry value="5">@Strings.Calories</listEntry>
+        <listEntry value="6">@Strings.Distance</listEntry>
+        <listEntry value="4">@Strings.Respiration</listEntry>
+        <listEntry value="7">@Strings.ActiveMinutes</listEntry>
     </settingConfig>
   </setting>
 
   <setting propertyKey="@Properties.bottomLeftMetric" title="@Strings.BottomLeftMetric" prompt="@Strings.MetricPrompt">
     <settingConfig type="list">
+        <listEntry value="0">@Strings.HeartRate</listEntry>
+        <listEntry value="2">@Strings.StepsCount</listEntry>
+        <listEntry value="1">@Strings.WatchBattery</listEntry>
+        <listEntry value="3">@Strings.Stress</listEntry>
+        <listEntry value="5">@Strings.Calories</listEntry>
+        <listEntry value="6">@Strings.Distance</listEntry>
+        <listEntry value="4">@Strings.Respiration</listEntry>
+        <listEntry value="7">@Strings.ActiveMinutes</listEntry>
     </settingConfig>
   </setting>
 
   <setting propertyKey="@Properties.bottomRightMetric" title="@Strings.BottomRightMetric" prompt="@Strings.MetricPrompt">
     <settingConfig type="list">
+        <listEntry value="0">@Strings.HeartRate</listEntry>
+        <listEntry value="2">@Strings.StepsCount</listEntry>
+        <listEntry value="1">@Strings.WatchBattery</listEntry>
+        <listEntry value="3">@Strings.Stress</listEntry>
+        <listEntry value="5">@Strings.Calories</listEntry>
+        <listEntry value="6">@Strings.Distance</listEntry>
+        <listEntry value="4">@Strings.Respiration</listEntry>
+        <listEntry value="7">@Strings.ActiveMinutes</listEntry>
     </settingConfig>
   </setting>
 

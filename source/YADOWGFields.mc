@@ -114,22 +114,7 @@ class Fields extends WatchUi.Drawable {
       dc.clear();
 		}
 
-    dc.drawText(
-      coords[0],
-      coords[1],
-      sourceSansProFont,
-      getValue(HEART),
-      Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
-    );
-
-    dc.setColor(Graphics.COLOR_DK_RED, Graphics.COLOR_TRANSPARENT);
-    dc.drawText(
-      coords[0] + offset,
-      coords[1] + offset,
-      iconsFont,
-      60447.toChar().toString(),
-      Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
-    );
+    updateLambdaField(dc, isPartialUpdate, HEART, coords, leftSide);
 
     dc.clearClip();
   }
@@ -163,6 +148,8 @@ class Fields extends WatchUi.Drawable {
 
   function getIcon(key) as String {
     switch (key) {
+      case HEART:
+        return 60447.toChar().toString();
       case STEPS:
         return 61239.toChar().toString();
       case STRESS:
@@ -184,6 +171,8 @@ class Fields extends WatchUi.Drawable {
 
   function getIconColor(key) as Number {
     switch (key) {
+      case HEART:
+        return Graphics.COLOR_DK_RED;
       case STEPS:
         return Application.Properties.getValue("ydgBrightBlue");
       case STRESS:
