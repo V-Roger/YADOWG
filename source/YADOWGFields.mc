@@ -94,7 +94,6 @@ class Fields extends WatchUi.Drawable {
   function updateHR(dc, isPartialUpdate, coords, leftSide) {
     var height = dc.getHeight();
     var width = dc.getWidth();
-    var offset = leftSide == true ? 30 : -30 as Number;
 
     var clockTime = System.getClockTime();
 		var seconds = clockTime.sec;
@@ -105,8 +104,8 @@ class Fields extends WatchUi.Drawable {
     dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
     if (isPartialUpdate) {
 			dc.setClip(
-				coords[0] + offset * 1.33,
-				coords[1] + offset * 1.33,
+				coords[0] - 10,
+				coords[1] - 10,
 				25,
 				30
 			);

@@ -5,9 +5,9 @@
         Use "Monkey C: Edit Application" from the Visual Studio Code command palette
         to update the application attributes.
     -->
-  <!-- <iq:application id="e724b847-41ca-4911-9350-122a737a8f77" type="watchface" name="@Strings.AppName" entry="YADOWGApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="3.2.0"> -->
+  <iq:application id="e724b847-41ca-4911-9350-122a737a8f77" type="watchface" name="@Strings.AppName" entry="YADOWGApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="3.2.0">
   <!-- beta id-->
-  <iq:application id="6d76e0f3-ae53-4468-ae34-dbecc8728366" type="watchface" name="@Strings.AppName" entry="YADOWGApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="3.2.0">
+  <!-- <iq:application id="6d76e0f3-ae53-4468-ae34-dbecc8728366" type="watchface" name="@Strings.AppName" entry="YADOWGApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="3.2.0"> -->
     <!--
             Use the following from the Visual Studio Code comand palette to edit
             the build targets:

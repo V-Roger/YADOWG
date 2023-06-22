@@ -39,7 +39,7 @@ class Time extends WatchUi.Drawable {
 		}
 
         if (!hideSeconds) {
-            dc.setColor(AppBase.getProperty("secondsColor"), Graphics.COLOR_TRANSPARENT);
+            dc.setColor(Application.Properties.getValue("secondsColor"), Graphics.COLOR_TRANSPARENT);
             dc.drawText(
                 x,
                 y + 50,
@@ -78,7 +78,7 @@ class Time extends WatchUi.Drawable {
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         );
 
-        dc.setColor(AppBase.getProperty("minutesColor"), Graphics.COLOR_TRANSPARENT);
+        dc.setColor(Application.Properties.getValue("minutesColor"), Graphics.COLOR_TRANSPARENT);
         dc.drawText(
             x - 1,
             y + 20,
