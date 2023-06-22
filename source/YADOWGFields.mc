@@ -113,7 +113,7 @@ class Fields extends WatchUi.Drawable {
       dc.clear();
 		}
 
-    updateLambdaField(dc, isPartialUpdate, HEART, coords, leftSide);
+    updateLambdaField(dc, false, HEART, coords, leftSide);
 
     dc.clearClip();
   }
