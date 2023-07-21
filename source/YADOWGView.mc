@@ -12,6 +12,7 @@ class YADOWGView extends WatchUi.WatchFace {
     private var clock;
     private var ring;
     private var header;
+    var units = Application.Properties.getValue("units") == 0 ? "metric" : "imperial";
     var lastKnownPosition = null;
 
     function initialize() {

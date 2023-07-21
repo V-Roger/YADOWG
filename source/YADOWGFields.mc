@@ -92,9 +92,6 @@ class Fields extends WatchUi.Drawable {
   }
 
   function updateHR(dc, isPartialUpdate, coords, leftSide) {
-    var height = dc.getHeight();
-    var width = dc.getWidth();
-
     var clockTime = System.getClockTime();
 		var seconds = clockTime.sec;
     if (isPartialUpdate && seconds % 5) {

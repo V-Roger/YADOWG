@@ -1,7 +1,9 @@
 <properties>
   <!-- meta -->
-  <property id="appVersion" type="string">0.1.1</property>
-
+  <property id="appVersion" type="string">0.1.4</property>
+  <!-- localization -->
+  <property id="units" type="number">0</property>
+  
   <!-- metrics -->
   <property id="topLeftMetric" type="number">0</property>
   <property id="topRightMetric" type="number">2</property>

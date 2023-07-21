@@ -150,7 +150,7 @@ class Header extends WatchUi.Drawable {
   function getWindSpeed() as String {
     var conditions = Weather.getCurrentConditions();
     if (conditions != null) {
-      return conditions.windSpeed.format("%.1f");
+      return (conditions.windSpeed * (watch.units == "metric" ? 3.6 : 2.23694)).format("%.1f");
     }
 
     return "";
@@ -193,7 +193,7 @@ class Header extends WatchUi.Drawable {
 
     if (pressure != null) {
       pressure = pressure / 100; // Pa --> mbar;
-      value = pressure.format("%.1f") + "hPa ";
+      value = pressure.format("%.1f") + watch.units == "metric" ? "hPa " : "mbar "; 
     }
 
     return value + getPressureTrend();
@@ -231,7 +231,7 @@ class Header extends WatchUi.Drawable {
   function getTemperature() as String {
     var conditions = Weather.getCurrentConditions();
     if (conditions != null) {
-      return conditions.temperature.format("%d") + "°C";
+      return watch.units == "metric" ? conditions.temperature.format("%d") + "°C" : (conditions.temperature  * (9.0 / 5) + 32).format("%d") + "°F";
     }
 
     return "?!";
@@ -270,7 +270,7 @@ class Header extends WatchUi.Drawable {
       }
     }
     if (altitude != null) {
-      value = altitude.format("%d") + "m";
+      value = watch.units == "metric" ? altitude.format("%d") + "m" : (altitude * 3.28084).format("%d") + "ft";
     }
 
     return value;

@@ -3,6 +3,13 @@
     <settingConfig type="alphaNumeric" readonly="true" />
   </setting>
 
+  <setting propertyKey="@Properties.units" title="@Strings.UnitsTitle" prompt="@Strings.UnitsPrompt">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.Metric</listEntry>
+      <listEntry value="1">@Strings.Imperial</listEntry>
+    </settingConfig>
+  </setting>
+
   <setting propertyKey="@Properties.topLeftMetric" title="@Strings.TopLeftMetric" prompt="@Strings.MetricPrompt">
     <settingConfig type="list">
         <listEntry value="0">@Strings.HeartRate</listEntry>

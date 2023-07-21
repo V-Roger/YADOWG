@@ -1,11 +1,16 @@
 <strings>
     <string id="AppName">YADOWG</string>
     <string id="AppVersionTitle">version :</string>
+    <string id="UnitsTitle">Units</string>
+    <string id="UnitsPrompt">units :</string>
     <string id="TopLeftMetric">Top left metric :</string>
     <string id="TopRightMetric">Top right metric :</string>
     <string id="BottomLeftMetric">Bottom left metric :</string>
     <string id="BottomRightMetric">Bottom right metric :</string>
     <string id="MetricPrompt">Choose one</string>
+
+    <string id="Metric">Metric</string>
+    <string id="Imperial">Imperial</string>
 
     <string id="SecondsColor">Seconds color :</string>
     <string id="MinutesColor">Minutes color :</string>
