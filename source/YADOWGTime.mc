@@ -53,7 +53,16 @@ class Time extends WatchUi.Drawable {
 
     function draw(dc as Dc) as Void {
         var clockTime = System.getClockTime();
-        var hours = clockTime.hour.format("%02d");
+        var settings = System.getDeviceSettings();
+        var hours = clockTime.hour;
+        if (settings.is24Hour || Application.Properties.getValue("units") != 0) {
+            if (hours >= 12) {
+                hours = hours - 12;
+            }
+            if (hours == 0) {
+                hours = 12;
+            }
+        }
         var mins = clockTime.min.format("%02d");
         var x = dc.getWidth() / 2;
         var y = dc.getHeight() / 2;
@@ -74,7 +83,7 @@ class Time extends WatchUi.Drawable {
             x - 1,
             y - 20,
             bebasNumbersFont,
-            hours,
+            hours.format("%02d"),
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER
         );
 
