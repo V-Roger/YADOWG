@@ -1,6 +1,6 @@
 <properties>
   <!-- meta -->
-  <property id="appVersion" type="string">0.1.7</property>
+  <property id="appVersion" type="string">0.1.8</property>
 
   <!-- localization -->
   <property id="units" type="number">0</property>
