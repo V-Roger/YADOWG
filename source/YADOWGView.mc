@@ -12,7 +12,6 @@ class YADOWGView extends WatchUi.WatchFace {
     private var clock;
     private var ring;
     private var header;
-    var units = Application.Properties.getValue("units") == 0 ? "metric" : "imperial";
     var lastKnownPosition = null;
 
     function initialize() {
@@ -70,20 +69,43 @@ class YADOWGView extends WatchUi.WatchFace {
         }
     }
 
+    function isPositionValid(position) {
+        if (position == null) {
+            return false;
+        }
+
+        if (position.toDegrees()[0] == 0 || Math.round(position.toDegrees()[0]) == 180) {
+            return false;
+        }
+
+        if (position.toDegrees()[1] == 0 || Math.round(position.toDegrees()[1]) == 180) {
+            return false;
+        }
+
+        return true;
+    }
+
     function getAndStorePosition() as Boolean {
         var currentPositionInfo = Position.getInfo();
-        if (currentPositionInfo.position != null) {
+        if (isPositionValid(currentPositionInfo.position)) {
             var currentPosition = currentPositionInfo.position;
             storePositionInfo(currentPosition);
         } else {
             var currentLocation= Activity.Info.currentLocation;
-            if (currentLocation != null) {
+            if (isPositionValid(currentLocation)) {
                 storePositionInfo(currentLocation);
             } else {
-                var lastPositionCoords = retrievePersistedValue("last-position");
-                if (lastPositionCoords != null) {
-                    var lastPosition = new Toybox.Position.Location({ :latitude => lastPositionCoords[0], :longitude => lastPositionCoords[1], :format => :degrees });
-                    storePositionInfo(lastPosition);
+                var weatherCurrentConditions = Weather.getCurrentConditions();
+                if (weatherCurrentConditions != null && weatherCurrentConditions.observationLocationPosition != null) {
+                    var currentWeatherLocation= weatherCurrentConditions.observationLocationPosition;
+                    storePositionInfo(currentWeatherLocation);
+                } else {
+                    var lastPositionLat = retrievePersistedValue("last-position-lat");
+                    var lastPositionLng = retrievePersistedValue("last-position-lng");
+                    if (lastPositionLat != null && lastPositionLng != null) {
+                        var lastPosition = new Toybox.Position.Location({ :latitude => lastPositionLat, :longitude => lastPositionLng, :format => :degrees });
+                        storePositionInfo(lastPosition);
+                    }
                 }
             }
         }
@@ -93,29 +115,20 @@ class YADOWGView extends WatchUi.WatchFace {
 
     function storePositionInfo(position as Position.Location) as Void {
         lastKnownPosition = position;
-        persistValue("last-position", position.toDegrees());
+        persistValue("last-position-lng", position.toDegrees()[1].toFloat());
+        persistValue("last-position-lat", position.toDegrees()[0].toFloat());
         WatchUi.requestUpdate();
     }
 
     function onStart(state as Dictionary) as Void {
-        if (getAndStorePosition()) {
-            storePositionInfo(lastKnownPosition);
-        }
-    }
-
-    function onStop(state as Dictionary) as Void {
-        if (getAndStorePosition()) {
-            storePositionInfo(lastKnownPosition);
-        }
+        getAndStorePosition();
     }
 
     // Called when this View is brought to the foreground. Restore
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() as Void {
-        if (getAndStorePosition()) {
-            storePositionInfo(lastKnownPosition);
-        }
+        getAndStorePosition();
     }
 
     // Update the view
@@ -128,9 +141,6 @@ class YADOWGView extends WatchUi.WatchFace {
     // state of this View here. This includes freeing resources from
     // memory.
     function onHide() as Void {
-        if (getAndStorePosition()) {
-            storePositionInfo(lastKnownPosition);
-        }
     }
 
     // The user has just looked at their watch. Timers and animations may be started here.
