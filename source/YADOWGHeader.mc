@@ -196,7 +196,7 @@ class Header extends WatchUi.Drawable {
 
     if (pressure != null) {
       pressure = pressure / 100; // Pa --> mbar;
-      value = pressure.format("%.1f") + units.equals("metric") ? "hPa " : "mbar "; 
+      value = (pressure.format("%.1f") + (units.equals("metric") ? "hPa " : "mbar ")); 
     }
 
     return value + getPressureTrend();
