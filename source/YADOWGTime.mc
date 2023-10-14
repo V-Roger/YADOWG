@@ -6,6 +6,7 @@ import Toybox.WatchUi;
 class Time extends WatchUi.Drawable {
     var hideSeconds = false;
     private var bebasNumbersFont, bebasNumbersSmallFont;
+    private var units;
 
     function initialize() {
         var dictionary = {
@@ -13,6 +14,8 @@ class Time extends WatchUi.Drawable {
         };
         bebasNumbersFont = WatchUi.loadResource(Rez.Fonts.BebasNeueNumbersFont);
         bebasNumbersSmallFont = WatchUi.loadResource(Rez.Fonts.BebasNeueNumbersSmallFont);
+    
+        units = Application.Properties.getValue("units") == 0 || System.getDeviceSettings().temperatureUnits == System.UNIT_METRIC ? "metric" : "imperial";
         
         Drawable.initialize(dictionary);
     }
@@ -55,7 +58,7 @@ class Time extends WatchUi.Drawable {
         var clockTime = System.getClockTime();
         var settings = System.getDeviceSettings();
         var hours = clockTime.hour;
-        if (settings.is24Hour || Application.Properties.getValue("units") != 0) {
+        if (!settings.is24Hour || !units.equals("metric")) {
             if (hours >= 12) {
                 hours = hours - 12;
             }
